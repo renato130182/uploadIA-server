@@ -1,0 +1,36 @@
+# @name Prompts
+GET http://localhost:3333/prompts
+
+###
+# @name upload_videos
+POST http://localhost:3333/videos
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="anjo.mp3"
+Content-Type: audio/mpeg
+
+< ./anjo.mp3
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+# @name create_transcription_videos
+POST http://localhost:3333/videos/a7c66676-ed14-4be4-bdaa-0996723fd187/transcription
+Content-Type: application/json
+
+{
+    "prompt":"amor, anjo, vida"
+}
+
+###
+# @name generate_ai_completion
+POST http://localhost:3333/ai/completion
+Content-Type: application/json
+
+{
+    "videoId":"a7c66676-ed14-4be4-bdaa-0996723fd187",
+    "temperature":0.5,
+    "template":"Gere resumo da transcrição '''{transcription}'''"
+}
+
+
